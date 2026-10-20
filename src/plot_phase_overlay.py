@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.colors import TwoSlopeNorm
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 RDIR = os.path.join(HERE, "results")
 
 # ── data ─────────────────────────────────────────────────────────────────────

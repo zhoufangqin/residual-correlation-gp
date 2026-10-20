@@ -47,7 +47,7 @@ def standardised_residuals(Y, mu, Sig):
 
 
 EMB_DIR = os.environ.get("COCO_EMB_DIR",
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/coco_embed"))
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results/coco_embed"))
 OUT_DIR = os.environ.get("COCO_OUT", "results/coco")
 N_SUB, CV, PCA_DIM, MIN_N = 250, 5, 64, 120
 

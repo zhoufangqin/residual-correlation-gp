@@ -38,10 +38,9 @@ from sklearn.metrics import r2_score
 from sklearn.preprocessing import StandardScaler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-# data_utils (PHO/SH/WUR loaders) lives in the sibling calibration_paper dir
-_CALIB = os.path.abspath(os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "calibration_paper"))
-if os.path.isdir(_CALIB) and _CALIB not in sys.path:
+# data_utils (PHO/SH/WUR loaders) is not redistributed; see CALIB_PAPER_DIR in the README
+_CALIB = os.environ.get("CALIB_PAPER_DIR", "")
+if _CALIB and _CALIB not in sys.path:
     sys.path.insert(0, _CALIB)
 
 
@@ -167,14 +166,14 @@ PLANT_DATASETS = ("PHO", "SH", "WUR", "rice", "wheat")
 def dataset_available(name):
     """True if <name> can be loaded: a data_public/<name>.npz exists, or it is a
     plant set and CALIB_PAPER_DIR points at the companion data loaders."""
-    here = os.path.dirname(os.path.abspath(__file__))
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
     if os.path.exists(os.path.join(here, f"data_public/{name.lower()}.npz")):
         return True
     return name in PLANT_DATASETS and bool(os.environ.get("CALIB_PAPER_DIR"))
 
 
 def load(name):
-    here = os.path.dirname(os.path.abspath(__file__))
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
     if name in ("rice", "wheat"):
         # PHO split by species: each is its own homogeneous multi-target set
         import data_utils as du

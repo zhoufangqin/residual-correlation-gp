@@ -13,7 +13,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "calibration_paper")))
+if os.environ.get("CALIB_PAPER_DIR"):
+    sys.path.insert(0, os.environ["CALIB_PAPER_DIR"])
 from legC_calibration import collect_oof, metrics
 from gateB_recovery import load_public
 import data_utils as du

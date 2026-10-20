@@ -34,7 +34,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from legJ_jointcalib import icm_predict, indep_predict, joint_metrics
 from legJ_jointcalib import load as _load_orig
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 
 
 def load(name):

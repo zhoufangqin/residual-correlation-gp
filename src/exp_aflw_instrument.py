@@ -1,7 +1,7 @@
 """
-COCO keypoint instrument: real-image test of (A) the calibration mechanism at
+AFLW keypoint instrument: real-image test of (A) the calibration mechanism at
 large T and (B) selection generality, from cached person-crop embeddings
-(embed_coco.py).
+(embed_aflw.py).
 
 Keypoint subsets of varying size/structure form the conditions; targets are the
 normalized (x,y) coordinates of the subset's keypoints (instances where all are
@@ -46,18 +46,19 @@ def standardised_residuals(Y, mu, Sig):
     return (Y - mu) / sd
 
 
-EMB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/mpii_embed")
-N_SUB, CV, PCA_DIM, MIN_N = 250, 5, 64, 120
+EMB_DIR = os.environ.get("AFLW_EMB_DIR",
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results/aflw_embed"))
+OUT_DIR = os.environ.get("AFLW_OUT", "results/aflw")
+N_SUB, CV, PCA_DIM, MIN_N = 200, 5, 64, 120
 
-# MPII 16-joint indices: 0 r_ankle 1 r_knee 2 r_hip 3 l_hip 4 l_knee 5 l_ankle
-# 6 pelvis 7 thorax 8 upper_neck 9 head_top 10 r_wrist 11 r_elbow 12 r_shoulder
-# 13 l_shoulder 14 l_elbow 15 l_wrist
+# iBUG 68 landmark groups: jaw 0-16, brows 17-26, nose 27-35, eyes 36-47, mouth 48-67.
+# T capped at 40 because ICM prediction is O((n*T)^3); larger subsets are intractable.
 SUBSETS = {
-    "torso(4kp)":   [2, 3, 12, 13],
-    "arms(6kp)":    [10, 11, 12, 13, 14, 15],
-    "legs(6kp)":    [0, 1, 2, 3, 4, 5],
-    "limbs(8kp)":   [0, 1, 4, 5, 10, 11, 14, 15],
-    "body(12kp)":   [0, 1, 2, 3, 4, 5, 10, 11, 12, 13, 14, 15],
+    "eyecorners(4pt)": [36, 39, 42, 45],          # T=8
+    "nose(9pt)":       list(range(27, 36)),        # T=18
+    "eyes(12pt)":      list(range(36, 48)),        # T=24
+    "browsnose(19pt)": list(range(17, 36)),        # T=38
+    "mouth(20pt)":     list(range(48, 68)),        # T=40
 }
 
 
@@ -134,7 +135,7 @@ def cv_r2(Xs, Ys):
 def main():
     files = sorted(glob.glob(os.path.join(EMB_DIR, "*.npz")))
     if not files:
-        print("No COCO embeddings in", EMB_DIR); return
+        print("No AFLW embeddings in", EMB_DIR); return
     encs = {}
     for f in files:
         name, X, Ykp, vis = load_encoder(f)
@@ -160,10 +161,10 @@ def main():
             print(f"  [{name}|{sub}] T={Ys.shape[1]} n={len(Xs)} D={D:.2f} "
                   f"r2={M['Indep']['mean_r2']:.2f} dNLLicm={rows[-1]['dnll_icm']:+.2f}", flush=True)
     dfA = pd.DataFrame(rows)
-    os.makedirs("results/mpii", exist_ok=True)
-    dfA.to_csv("results/mpii/mpii_predict_calibrate.csv", index=False)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    dfA.to_csv(os.path.join(OUT_DIR, "aflw_predict_calibrate.csv"), index=False)
     pd.set_option("display.width", 220)
-    print("\n=== (A) MPII keypoint mechanism ===")
+    print("\n=== (A) AFLW keypoint mechanism ===")
     print(dfA.to_string(index=False))
     if len(dfA) >= 4:
         rd, pd_ = spearmanr(dfA["D_logdet"], dfA["dnll_icm"])
@@ -176,8 +177,8 @@ def main():
         print(f"Spearman(r2_indep, dNLL_icm) = {rr:+.3f} (p={pr:.3f})  [ceiling]")
         print(f"max |dR2_icm| = {dfA['dr2_icm'].abs().max():.3f}")
 
-    # ---- (B) selection on the largest populated subset ----
-    big = "body(12kp)"
+    # ---- (B) selection on a representative subset ----
+    big = "eyes(12pt)"
     kps = SUBSETS[big]
     true_r2, gpl, icm_ev, logme = {}, {}, {}, {}
     for name, (X, Ykp, vis) in encs.items():
@@ -198,11 +199,11 @@ def main():
         tau, _ = kendalltau([sc[e] for e in order], tr)
         selrows.append(dict(method=label, kendall_tau=round(tau, 3)))
     dfB = pd.DataFrame(selrows)
-    dfB.to_csv("results/mpii/mpii_selection.csv", index=False)
+    dfB.to_csv(os.path.join(OUT_DIR, "aflw_selection.csv"), index=False)
     print(f"\n=== (B) selection on {big} ===")
     print("true CV R2:", {e: round(true_r2[e], 3) for e in order})
     print(dfB.to_string(index=False))
-    print("\nSaved results/mpii/mpii_predict_calibrate.csv, coco_selection.csv")
+    print("\nSaved results/aflw/aflw_predict_calibrate.csv, aflw_selection.csv")
 
 
 if __name__ == "__main__":

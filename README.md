@@ -37,8 +37,21 @@ The tabular experiments need only NumPy, SciPy, scikit-learn, pandas and matplot
 The image experiments additionally need PyTorch, timm, Pillow and pycocotools.
 The results in this repository were produced with Python 3.10.
 
-Run every script from the repository root; each one writes its outputs under
-`results/<experiment>/`.
+All Python code is in `src/`. Run scripts from the repository root, e.g.
+
+```bash
+python src/exp_residual_diagnostic_multiseed.py
+```
+
+Each script writes its outputs under `results/<experiment>/`.
+
+## Repository layout
+
+```
+src/            all Python code (core modules, experiments, plotting)
+data_public/    public multi-target benchmarks as .npz (X, Y)
+results/        result files behind the paper's tables and figures
+```
 
 ## Data
 
@@ -60,6 +73,8 @@ directory that provides the companion `data_utils` loaders, or place
 
 ## Core modules
 
+All files below are in `src/`.
+
 | File | Contents |
 |---|---|
 | `legJ_jointcalib.py` | Independent GPs, rank-1 GP-ICM (Kronecker eigendecomposition), joint metrics, data loading |
@@ -70,6 +85,8 @@ directory that provides the companion `data_utils` loaders, or place
 | `embed_coco.py` | Frozen-encoder embedding code shared by the image scripts |
 
 ## Reproducing the paper
+
+Scripts are in `src/`; run them from the repository root.
 
 | Paper item | Script(s) | Output |
 |---|---|---|

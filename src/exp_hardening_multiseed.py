@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from exp_hardening_ablation import fit_icm_rank, load
 from legJ_jointcalib import icm_predict, indep_predict, joint_metrics
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 OUT = os.path.join(_HERE, "results/legJ/hardening_multiseed.csv")
 
 DATASETS = ["atp1d", "atp7d", "rf1", "rf2", "WUR", "SH", "rice", "wheat",

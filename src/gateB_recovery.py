@@ -114,7 +114,7 @@ def run_pairs(name, X, pairs, cv, seeds=(0, 1, 2)):
 
 def load_public():
     """Returns {name: (X, pairs, cv)} for cached non-plant multi-target sets."""
-    here = os.path.dirname(os.path.abspath(__file__))
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
     out = {}
     tec = np.load(os.path.join(here, "data_public/tecator.npz"), allow_pickle=True)
     Xt, Yt = tec["X"], tec["Y"]            # moisture, fat, protein

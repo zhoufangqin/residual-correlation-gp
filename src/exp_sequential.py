@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from legJ_jointcalib import fit_icm, icm_predict, joint_metrics
 
-HERE  = os.path.dirname(os.path.abspath(__file__))
+HERE  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 RDIR  = os.path.join(HERE, "results", "sequential")
 os.makedirs(RDIR, exist_ok=True)
 

@@ -28,7 +28,7 @@ from exp_hardening_ablation import load
 from exp_residual_icm_multiseed import residual_corr_from_train, resicm_predict
 from legJ_jointcalib import indep_predict, joint_metrics
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 OUT = os.path.join(_HERE, "results/legJ/resicm_matched_long.csv")
 PUBLISHED = os.path.join(_HERE, "results/legJ/residual_icm_multiseed_long.csv")
 

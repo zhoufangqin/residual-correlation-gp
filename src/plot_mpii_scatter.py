@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import spearmanr
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 df = pd.read_csv(os.path.join(HERE, "results/mpii/mpii_predict_calibrate.csv"))
 
 ENC_LABEL = {

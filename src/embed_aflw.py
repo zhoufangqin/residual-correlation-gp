@@ -17,7 +17,7 @@ from scipy.io import loadmat
 
 import embed_coco as ec
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 AFLW_DIR = os.path.join(_HERE, "imgdata", "aflw")
 
 

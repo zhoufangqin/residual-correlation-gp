@@ -21,7 +21,7 @@ from scipy.io import loadmat
 
 import embed_coco as ec   # get_encoder, embed
 
-_HERE = os.path.dirname(os.path.abspath(__file__))
+_HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repository root
 MPII_DIR = os.path.join(_HERE, "imgdata", "mpii")
 N_JOINTS = 16
 
