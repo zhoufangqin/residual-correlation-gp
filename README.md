@@ -73,7 +73,7 @@ Each script writes its outputs under `results/<experiment>/`.
 src/            all Python code (core modules, experiments, plotting)
 data_public/    public multi-target benchmarks as .npz (X, Y)
 results/        result files behind the paper's tables and figures
-REPRODUCE.md    which script produces each table and figure
+REPRODUCE.md    data sources and which script produces each table and figure
 ```
 
 ## Reproducing the paper
