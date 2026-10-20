@@ -76,28 +76,11 @@ results/        result files behind the paper's tables and figures
 REPRODUCE.md    which script produces each table and figure
 ```
 
-## Data
-
-| Datasets | Location | Source |
-|---|---|---|
-| atp1d, atp7d, edm, jura, rf1, rf2, scm1d, scm20d, wq, sarcos | `data_public/*.npz` (included) | Multi-target regression benchmarks: [MULAN](https://mulan.sourceforge.net/datasets-mtr.html) (Spyromitros-Xioufis et al., 2016); sarcos from the [GPML book site](http://gaussianprocess.org/gpml/data/) |
-| energy | `data_public/energy.npz` (included) | [UCI Energy Efficiency](https://archive.ics.uci.edu/dataset/242/energy+efficiency) |
-| tecator | `data_public/tecator.npz` (included) | [StatLib Tecator](http://lib.stat.cmu.edu/datasets/tecator) (Borggaard and Thodberg, 1992) |
-| SH, WUR, rice, wheat (PHO) | not included | Hyperspectral leaf spectra with gas-exchange V<sub>cmax</sub>/J<sub>max</sub>; available from the authors on request |
-| MPII, AFLW2000-3D, COCO keypoints | not included | Download the images yourself into `imgdata/{mpii,aflw,coco}/`, then run the `src/embed_*.py` scripts |
-
-Each `.npz` holds `X` (n × p features) and `Y` (n × T targets); some also hold
-`target_names`. Experiments subsample to n = 280 per seed, as described in the paper.
-
-Scripts skip any dataset whose data are unavailable, so without the plant data they run
-on the 12 public benchmarks. To include the plant datasets, set `CALIB_PAPER_DIR` to the
-directory that provides the companion `data_utils` loaders, or place
-`sh.npz`, `wur.npz`, `rice.npz` and `wheat.npz` in `data_public/`.
-
 ## Reproducing the paper
 
-[REPRODUCE.md](REPRODUCE.md) lists the core modules and maps every table and figure in the
-paper to the script that produces it and the result file it writes.
+[REPRODUCE.md](REPRODUCE.md) describes the datasets (the 12 public benchmarks are included
+in `data_public/`), lists the core modules, and maps every table and figure in the paper
+to the script that produces it and the result file it writes.
 
 ## Citation
 
@@ -114,4 +97,4 @@ paper to the script that produces it and the result file it writes.
 
 ## License
 
-Code: MIT (see `LICENSE`). The datasets in `data_public/` remain under the terms of their original sources listed above.
+Code: MIT (see `LICENSE`). The datasets in `data_public/` remain under the terms of their original sources listed in [REPRODUCE.md](REPRODUCE.md#data).
