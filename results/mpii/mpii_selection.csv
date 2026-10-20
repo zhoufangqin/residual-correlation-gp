@@ -1,0 +1,4 @@
+method,kendall_tau
+GP-LML,0.867
+GP-ICM,0.378
+LogME,0.822

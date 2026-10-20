@@ -1,0 +1,14 @@
+# Image data and frozen-encoder embeddings (not redistributed; regenerate with embed_*.py)
+imgdata/
+results/*_embed/
+
+# Plant datasets (available from the authors)
+data_public/sh.npz
+data_public/wur.npz
+data_public/rice.npz
+data_public/wheat.npz
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
