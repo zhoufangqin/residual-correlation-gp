@@ -1,8 +1,9 @@
 # Reproducing the paper
 
-All code is in `src/`. Run scripts from the repository root, e.g.
-`python src/exp_residual_diagnostic_multiseed.py`; each writes its outputs under
-`results/<experiment>/`. See the [README](README.md) for setup.
+All code is in `src/`. 
+Run scripts from the repository root, e.g., `python src/exp_residual_diagnostic_multiseed.py`. 
+Each writes its outputs under`results/<experiment>/`. 
+See the [README](README.md) for setup.
 
 ## Data
 
