@@ -52,7 +52,7 @@ def load(name):
 # Conservativeness ablation on the full 16-dataset converged set (matches the
 # diagnostic / method tables). The rank-(T-1) + optimize-ell variants are
 # O((nT)^3) per fold, so the high-dim / T=16 additions (scm1d/scm20d, T=16) make
-# the 5-variant sweep run for hours -- executed on Snellius, not locally.
+# the 5-variant sweep run for hours -- executed on a GPU cluster, not locally.
 # PHO is split into its two homogeneous species (rice, wheat) as elsewhere.
 # oes10/oes97 stay excluded (GP optimiser does not converge at p~=n~=300, T=16).
 DATASETS = ["atp1d", "atp7d", "rf1", "rf2", "WUR", "SH", "rice", "wheat",
